@@ -1,0 +1,197 @@
+please note some part of the explaination are made by gpt. and some are made by me.
+
+1.cpu
+  
+         1.CPU brief detail
+            a CPU ( Central Processing Unit) is like the brain of a computer. 
+            It's the part that does all the thinking and calculations to make the computer work.
+
+        2.CPU full detail
+                a CPU (Central Processing Unit) is like the brain of a computer. 
+                It's the part that does all the thinking and calculations to make the computer work.
+                For example, Imagine your computer as a team of workers, and the CPU is the supervisor. 
+                Whenever you give a command or run a program, the CPU takes care of making sure everything gets done correctly and in the right order.
+                usually it starts with [name][model type][generation][and the number].
+                Of course the higher the model type the better it is, however the cost also gone up. However it can also be noted that the a 1 generation above i5 cpu might be better than a 1 generation below i7, it really depends on how many cores there are and its computing speed.
+            single core
+                its like one guy working
+            multi core
+                its like multiple guy working on the task (so its good for multi tasking)
+        CPU models (f, ft, and kf,k,ks for intel and x/xt,x3d,g,ge for amd)
+            intel
+                f
+                    These are regular Intel processors without any specific designation. They are designed for general-purpose computing tasks, such as web browsing, office work, and everyday applications.
+                ft
+                    The "ft" means that these processors have integrated graphics. Integrated graphics means that the CPU has a built-in graphics processor that can handle basic graphical tasks like displaying images and videos without the need for a separate graphics card. This can be useful for casual gamers or users who don't need high-end graphics performance.
+                kf
+                    The "kf" indicates that these processors have integrated graphics disabled. They are essentially the same as "f" CPUs but lack the built-in graphics capability. These processors are usually targeted at users who already have a dedicated graphics card and don't need integrated graphics.
+                k
+                    "k" CPUs: The "k" indicates that these processors are unlocked. Unlocked CPUs allow users to overclock them, which means they can increase the clock speed of the CPU beyond its default setting. Overclocking can provide better performance for tasks that heavily rely on CPU speed, like gaming and certain multimedia applications.
+                ks
+                    "ks" CPUs: The "ks" indicates that these processors are unlocked like the "k" CPUs, but they also have integrated graphics disabled like the "kf" CPUs. This combination is suitable for users who want to overclock their CPUs but do not need the integrated graphics.
+            amd
+                ge
+                    The "GE" series CPUs are generally lower-power versions, which means they offer lower performance compared to other variants. They are more energy-efficient but may not be as powerful as some other models.
+                g
+                    The "G" series CPUs have integrated graphics, which is a useful feature for budget-friendly systems or users who don't need a dedicated graphics card. They offer a balance of CPU and GPU capabilities but are not as high-performance as some other models.
+                x3d
+                    improved 3D capabilities, making it better for graphics-intensive tasks like gaming or 3D modeling.
+                x/xt
+                    The "X" or "XT" CPUs are typically considered the best in terms of performance and capabilities. They offer higher processing power and are often preferred by gamers and users who need top-tier performance for demanding tasks.
+          Please  note:
+                Please note that overclocking will make the pc performance better however it might be bad for the pc (heat, not stable, shorten life-span) but despite this there are still people who will weigh the pros over this risk.
+
+
+
+    3. kinds of cpu?
+        intel
+            list of cpu models & brief "class" (from good to ok)
+                i9 (top)
+                i7 (above average)
+                i5 (average)
+                i3 (beginner)
+        amd
+            R9 (top)
+            R7 (above average)
+            R5 (average)
+            R3 (beginner)
+
+
+    4.CPU what we recommend
+        usually for newbies we would recommend for intel cpus, specifically the ones without overclocking. This is because intel CPU are well integrated and stable with various of software. Intel CPUs are faster when it comes down to tasks such as video editing. 
+        Also we don't recommend spending extra money on the ones with integrated graphics is the fact that gpu is much better at these.
+        However budget AMD has its best price value, it is cheaper than its Intel counterparts.
+        For model we recommend I5 is usually pretty good. However of course if price is not an issue go for the I9.
+
+
+2.motherboard
+    intro
+1. motherboard brief
+            a motherboard is like the main highway or city center of your computer. 
+            It's a big circuit board that connects and controls all the other parts of your computer, making them work together as a team.
+
+2.motherboard full detail
+            a motherboard is like the main highway or city center of your computer. It's a big circuit board that connects and controls all the other parts of your computer, making them work together as a team.
+            It is also the place where you plug in your mouse, mic, speaker and other components with. 
+            Please note, the amount of things available for plug in varies from different motherboards and also different cpu models may require different motherboards.
+            Also please note different motherboard model also supports different cpu's so please check! (>.<)/~
+
+
+ 3.  motherboard Type
+        ATX
+        mATX
+        ITX
+
+  4.  (motherboard) what we recommend
+        MATX as its a balance of not too big and expensive but also not too small.
+        of course the bigger it is the more plugs you can plug into your pc. As for brand just try the main ones such as asus etc.
+        However if space is the issue than ITX is good.
+
+
+3.gpu
+    1.what is gpu?
+        1.gpu brief detail
+        GPU (Graphics Processing Unit) is like a specialized computer part that helps your device show images and graphics on the screen.
+       
+     2.gpu full detail
+            GPU (Graphics Processing Unit) is like a specialized computer part that helps your device show images and graphics on the screen.
+            Nividia's name their gpu as [type][series][type] class are normal ti < super < max-Q.
+            AMD doesn't have a specific naming scheme for their GPUs like Nvidia does with the RTX series. Instead, AMD names their GPUs after the generation they belong to, followed by a number that indicates the performance level of the card. For example, the AMD Radeon RX 6900 XT is a high-end graphics card from the RX 6000 generation, while the AMD Radeon RX 6500 XT is a mid-range graphics card from the same generation.
+            for AMD's class are Ts < S < XT
+
+
+    3. kinds of gpu?
+        nividia
+            list of gpu models & brief "class" (from good to ok)
+                rtx90s
+                rtx80s
+                rtx70s
+                rtx60s
+           amd
+            list of gpu models & brief "class" (from good to ok)
+                rx series
+
+
+
+    4.gpu what we recommend
+        We recommend Nividia's gpu because of it allows to do ai task such as stable diffusion (ai generated art). Nividia also as rendering that can brighten the game's color for gamers to see better, while its dlss3 allows gamers to play in high graphics while also boosting its performance.
+        If budget is the issue then go for the AMD, usually running games amd gpu also does the same job and it is definitely a cheaper alternative to Nividia.
+        As for model we would usually recommend the 60 however this year's 60 series does not have much of an improvement at all and in terms of raw power its actually worse than the previous model. Therefore we recommend to wait, else get the 70.
+        if money is not the issue than 90 or 80 series is good, for ai.
+
+
+4.memory
+  1.  memory brief info
+           a super-fast workspace where your computer stores data and instructions that it needs to work on right away
+
+   2. memory full info
+        memory is a super-fast workspace where your computer stores data and instructions that it needs to work on right away. 
+              for example its like a chopping board, the more memory you have the more things you can put on that chopping board. 
+              ddr4,5,6 the newer generation offers faster speed, lower voltage consumption, better capacity.
+
+
+3. memory types
+        ddr4
+        ddr5
+        dd6
+
+4. what we recommend memory
+        we would just recommend 16 gb of ddr4, this is because it is cheaper, if ddr5 is similar price then get that instead. 
+        Not the newest version is the fact that you will never catch up with the newest trend, in the future there may be ddr 7,8 or even 9. 
+        32gb is irreverent currently, because right now 16 gb is enough, however in the future as software's such as web browser require more memories, 
+        it is a good idea to upgrade later by then.
+
+
+5.hard
+   1.storage brief:
+       storage is basically the capcaity of how much data can be stored in the pc.
+
+   2. storage type
+        hdd:
+            outdated, but offers large storage.
+        M2:
+            expensive but fast
+        Sata:
+            cheaper than M2 but slower compared to m2
+
+
+   3. (storage) what we recommend
+        This really depends on your habbits. For people who tend to store a lot of pictures, games etc it may be good to have a combination of M2 and hdd.
+         However for people who tend to download few games and for normal work sata is cheaper.
+
+
+power supply
+   1. (ps) brief:
+        power up your pc
+
+  2.(ps)  types
+        gold (best but expensive)
+        silver (ok)
+        bronze(kinda bad)
+
+   3. (ps) what we recommend:
+        we would recommend gold as it lasts longer, as for watts it really depends on how many fans and stuff you put on your pc and the gpu types etc. 
+        To get a rough number you could go find a calculator online.
+
+
+7.cooling
+    1.  cooling brief detail:
+            cools your pc and other components
+
+
+ 2. cooling  type
+        water cool: cooling using liquid and fan
+        fan cool: cooling using fan (air)
+
+  3. (cooling)  what we recommend
+        if you decided to get an i5 cpu then generally theres no need to have a water cooling, for i7 or i9 water cooling is a must. 
+        Please note that water cooling's lifespan only has about 2 years.
+        if money isn't the issue then get water cooling, because it helps with the pc's performance.
+
+
+gsdgasd\
+
+aa
+a
+dasda
+
