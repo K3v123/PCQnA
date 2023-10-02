@@ -16,6 +16,7 @@ public class Gpu extends Pc {
 
     private static boolean gpuMenuStatus = false;
 
+    System.out.println("Hello");
     @Override
     protected void printBriefInfo() {
         // Read and print a brief GPU detail section from a file
