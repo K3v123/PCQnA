@@ -8,6 +8,7 @@ package try2;
  *
  * @author kq635
  */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,33 +24,28 @@ public class CPUController {
         this.mainView = mainView;
 
         this.cpuView.addGoBackButtonListener(new GoBackListener());
-        // Assuming you add a button or action to fetch CPU details in the view
         this.cpuView.addFetchDetailsButtonListener(new FetchDetailsListener());
     }
 
     class GoBackListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
             cpuView.dispose();  // Close the CPUView window
-            mainView.setVisible(true);  // Show the main view
+            mainView.setVisible(true);  // Show the main view again
         }
     }
 
     class FetchDetailsListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                String name = cpuModel.getName();
+                cpuModel.loadFromDatabase();  // Loading the CPU details from the database
                 String speed = cpuModel.getSpeed();
-                boolean overclock = cpuModel.isOverclock();
-                cpuView.setCPUDetails(name, speed, overclock);
+                String overclock = cpuModel.getOverclock();
+                cpuView.setCPUDetails(speed, overclock); // Setting the details in the view
             } catch (Exception ex) {
                 cpuView.displayErrorMessage("Error fetching CPU details: " + ex.getMessage());
             }
         }
     }
-
-    // ... [Other methods and listeners as needed]
 }

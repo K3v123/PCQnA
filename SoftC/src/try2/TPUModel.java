@@ -14,5 +14,8 @@ public class TPUModel extends GPUModel {
         super(id, name, speed, null); // Pass null for classification since TPU doesn't use it
     }
 
-  
+    public TPUModel() {
+        super("defaultID", "defaultName", "defaultSpeed", null); // Pass null for classification
+    }
+
 }

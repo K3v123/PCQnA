@@ -8,43 +8,74 @@ package try2;
  *
  * @author kq635
  */
-import javax.swing.JLabel;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class CPUView extends BaseView {
 
-    private JLabel nameLabel, speedLabel, overclockLabel;
-    private JButton fetchDetailsButton; // Add this button
+    private JLabel speedLabel, coresLabel;
+    private JButton fetchDetailsButton, recommendationButton;
+    private JFrame recommendationFrame;
+    private JTextArea recommendationText, infoText;
 
     public CPUView() {
         super();
-        frame.setTitle("CPU Details");
+        initializeFrame("CPU Details");
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        nameLabel = new JLabel("Name: ");
         speedLabel = new JLabel("Speed: ");
-        overclockLabel = new JLabel("Overclock: ");
-        fetchDetailsButton = new JButton("Fetch Details"); // Initialize the button
+        coresLabel = new JLabel("Cores: ");
+        infoText = new JTextArea("The Central Processing Unit (CPU) is the primary component responsible for executing instructions of a computer program.", 5, 30);
+        infoText.setEditable(false);
+        fetchDetailsButton = new JButton("Fetch CPU Details");
+        recommendationButton = new JButton("Show Recommendation");
 
-        panel.add(nameLabel);
+        recommendationButton.addActionListener(e -> showRecommendation());
+
+        panel.add(infoText);
         panel.add(speedLabel);
-        panel.add(overclockLabel);
-        panel.add(fetchDetailsButton); // Add the button to the panel
+        panel.add(coresLabel);
+        panel.add(fetchDetailsButton);
+        panel.add(recommendationButton);
         panel.add(goBackButton);
 
         frame.add(panel);
         frame.setVisible(true);
     }
 
-    public void setCPUDetails(String name, String speed, boolean overclock) {
-        nameLabel.setText("Name: " + name);
-        speedLabel.setText("Speed: " + speed);
-        overclockLabel.setText("Overclock: " + (overclock ? "Yes" : "No"));
-    }
-
     public void addFetchDetailsButtonListener(ActionListener listener) {
         fetchDetailsButton.addActionListener(listener);
     }
 
-    // The rest of the methods from BaseView are inherited and do not need to be redefined here.
+    public void setCPUDetails(String speed, String cores) {
+        speedLabel.setText("Speed: " + speed);
+        coresLabel.setText("Cores: " + cores);
+    }
+
+    private void showRecommendation() {
+        recommendationFrame = new JFrame("CPU Recommendation");
+        recommendationFrame.setSize(300, 200);
+        recommendationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JPanel recommendationPanel = new JPanel();
+        recommendationPanel.setLayout(new BoxLayout(recommendationPanel, BoxLayout.Y_AXIS));
+
+        recommendationText = new JTextArea("For most users, a quad-core or hexa-core processor will suffice. For gaming or heavy multitasking, consider octa-core or higher.", 5, 30);
+        recommendationText.setEditable(false);
+        recommendationText.setWrapStyleWord(true);
+        recommendationText.setLineWrap(true);
+
+        JButton goBackFromRecommendation = new JButton("Go Back");
+        goBackFromRecommendation.addActionListener(e -> {
+            recommendationFrame.dispose();
+            frame.setVisible(true);
+        });
+
+        recommendationPanel.add(recommendationText);
+        recommendationPanel.add(goBackFromRecommendation);
+        recommendationFrame.add(recommendationPanel);
+        recommendationFrame.setVisible(true);
+        frame.setVisible(false);
+    }
 }

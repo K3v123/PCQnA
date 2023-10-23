@@ -26,6 +26,7 @@ public class MainView {
     private JButton cpuButton;
     private JButton adminButton;
     private JButton mostAskedButton;
+    private JButton finalSelectionButton;
 
     public MainView() {
         frame = new JFrame("PC Builder Guide");
@@ -33,6 +34,7 @@ public class MainView {
         frame.setSize(500, 600);
 
         mainPanel = new JPanel();
+
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         JLabel titleLabel = new JLabel("Welcome to PC Builder Guide");
@@ -47,8 +49,9 @@ public class MainView {
         powerSupplyButton = createButton("Power Supply");
         memoryButton = createButton("Memory");
         cpuButton = createButton("CPU");
-        adminButton = createButton("Admin Options");
+        adminButton = createButton("Admin");
         mostAskedButton = createButton("Most Asked Components");
+        finalSelectionButton = createButton("Final Selections");
 
         mainPanel.add(gpuButton);
         mainPanel.add(motherboardButton);
@@ -60,6 +63,7 @@ public class MainView {
         mainPanel.add(cpuButton);
         mainPanel.add(adminButton);
         mainPanel.add(mostAskedButton);
+        mainPanel.add(finalSelectionButton);
 
         frame.add(mainPanel);
         frame.setVisible(true);
@@ -69,6 +73,17 @@ public class MainView {
         JButton button = new JButton(text);
         button.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         return button;
+    }
+
+    public void applyVisibilityFromAdminView(AdminView adminView) {
+        gpuButton.setVisible(adminView.isGPUVisible());
+        cpuButton.setVisible(adminView.isCPUVisible());
+        memoryButton.setVisible(adminView.isMemoryVisible());
+        powerSupplyButton.setVisible(adminView.isPowerSupplyVisible());
+        coolingButton.setVisible(adminView.isCoolingVisible());
+        storageButton.setVisible(adminView.isStorageVisible());
+        tpuButton.setVisible(adminView.isTPUVisible());
+        motherboardButton.setVisible(adminView.isMotherboardVisible());
     }
 
     public void addGPUButtonListener(ActionListener listenForGPUButton) {
@@ -111,16 +126,55 @@ public class MainView {
         mostAskedButton.addActionListener(listenForMostAskedButton);
     }
 
+    public void addFinalSelectionButtonListener(ActionListener listenForFinalSelectionButton) {
+        finalSelectionButton.addActionListener(listenForFinalSelectionButton);
+    }
+
+    public void updateSelectionStoreDisplay(SelectionStore selectionStore) {
+        // Here, you can display the selections in a label or in another way if you prefer
+    }
+
     public void setVisible(boolean visibility) {
         frame.setVisible(visibility);
     }
 
+    public void setGPUVisibility(boolean isVisible) {
+        gpuButton.setVisible(isVisible);
+    }
+
+    public void setCPUVisibility(boolean isVisible) {
+        cpuButton.setVisible(isVisible);
+    }
+
+    public void setMemoryVisibility(boolean isVisible) {
+        memoryButton.setVisible(isVisible);
+    }
+
+    public void setPowerSupplyVisibility(boolean isVisible) {
+        powerSupplyButton.setVisible(isVisible);
+    }
+
+    public void setCoolingVisibility(boolean isVisible) {
+        coolingButton.setVisible(isVisible);
+    }
+
+    public void setStorageVisibility(boolean isVisible) {
+        storageButton.setVisible(isVisible);
+    }
+
+    public void setTPUVisibility(boolean isVisible) {
+        tpuButton.setVisible(isVisible);
+    }
+
+    public void setMotherboardVisibility(boolean isVisible) {
+        motherboardButton.setVisible(isVisible);
+    }
 
     public void displayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(frame, errorMessage);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new MainView());  // Proper way to launch a Swing GUI
+        SwingUtilities.invokeLater(() -> new MainView());
     }
 }

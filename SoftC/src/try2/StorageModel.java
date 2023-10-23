@@ -25,6 +25,13 @@ public class StorageModel extends Component {
         this.speed = speed;
     }
 
+    public StorageModel() {
+        super("defaultID", "defaultName");
+        this.type = "defaultType";
+        this.size = "defaultSize";
+        this.speed = 0.0;
+    }
+
     public String getType() {
         return type;
     }

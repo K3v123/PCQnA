@@ -23,32 +23,26 @@ public class CoolingController {
         this.mainView = mainView;
 
         this.coolingView.addGoBackButtonListener(new GoBackListener());
-        // Assuming you add a button or action to fetch Cooling details in the view
         this.coolingView.addFetchDetailsButtonListener(new FetchDetailsListener());
     }
 
     class GoBackListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
             coolingView.dispose();  // Close the CoolingView window
-            mainView.setVisible(true);  // Show the main view
+            mainView.setVisible(true);  // Show the main view again
         }
     }
 
     class FetchDetailsListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 String type = coolingModel.getType();
                 coolingView.setCoolingDetails(type);
             } catch (Exception ex) {
-                // Assuming you have a method to display errors in CoolingView
-                coolingView.displayErrorMessage("Error fetching Cooling details: " + ex.getMessage());
+                coolingView.displayErrorMessage("Error fetching cooling details: " + ex.getMessage());
             }
         }
     }
-
-    // ... [Other methods and listeners as needed]
 }

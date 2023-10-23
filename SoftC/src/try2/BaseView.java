@@ -14,6 +14,7 @@ import javax.swing.JPanel;
  *
  * @author kq635
  */
+
 public class BaseView {
 
     protected JFrame frame;
@@ -28,8 +29,8 @@ public class BaseView {
 
     protected void initializeFrame(String title) {
         frame.setTitle(title);
-        frame.setSize(300, 200);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400); // Adjusted size
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); // Adjusted close behavior
     }
 
     public void addGoBackButtonListener(ActionListener listenForGoBackButton) {

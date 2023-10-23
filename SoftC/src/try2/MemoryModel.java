@@ -21,6 +21,11 @@ public class MemoryModel extends Component {
         this.size = size;
     }
 
+    public MemoryModel() {
+        super("defaultID", "defaultName");
+        this.size = "defaultSize";
+    }
+
     public String getSize() {
         return size;
     }

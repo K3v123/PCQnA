@@ -31,6 +31,7 @@ public class GPUController {
         // Display initial GPU details
         displayGPUDetails();
     }
+    
 
     class FetchTypesListener implements ActionListener {
 
@@ -54,10 +55,8 @@ public class GPUController {
         String name = gpuModel.getName();
         String speed = gpuModel.getSpeed();
         String classification = gpuModel.getClassification();  // Ensure getClassification is defined in GPUModel
-        String recommendation = dbManager.fetchGPURecommendation(name);  // Ensure fetchGPURecommendation is defined in DatabaseManager
-
         // Update the view
         gpuView.setGPUDetails(name, speed, classification);
-        gpuView.setRecommendation(recommendation);
+//        gpuView.setRecommendation(recommendation);
     }
 }

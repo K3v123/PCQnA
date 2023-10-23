@@ -10,69 +10,133 @@ package try2;
  */
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class DatabaseManager {
 
-    private static final String DB_URL = "jdbc:derby:yourDatabaseName;create=true";
+    private final String url = "jdbc:derby://localhost:1527/PCQnA";
+    private final String user = "pdc";
+    private final String password = "pdc";
     private Connection conn;
 
     public DatabaseManager() {
         try {
-            conn = DriverManager.getConnection(DB_URL);
+            conn = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error connecting to the database.");
         }
+    }
+
+    public ResultSet fetchGPU() {
+        return executeQuery("SELECT * FROM GPU");
+    }
+
+    public ResultSet fetchCPU() {
+        return executeQuery("SELECT * FROM CPU");
+    }
+
+    public ResultSet fetchMemory() {
+        return executeQuery("SELECT * FROM Memory");
+    }
+
+    public ResultSet fetchPowerSupply() {
+        return executeQuery("SELECT * FROM PowerSupply");
+    }
+
+    public ResultSet fetchCooling() {
+        return executeQuery("SELECT * FROM Cooling");
+    }
+
+    public ResultSet fetchStorage() {
+        return executeQuery("SELECT * FROM Storage");
+    }
+
+    public ResultSet fetchTPU() {
+        return executeQuery("SELECT * FROM TPU");
+    }
+
+    public ResultSet fetchMotherboard() {
+        return executeQuery("SELECT * FROM Motherboard");
+    }
+
+    // Method to store the user's selection
+    public void storeUserSelection(String componentType, int componentId) {
+        try {
+            String query = "INSERT INTO user_selections (component_type, component_id) VALUES (?, ?) ON DUPLICATE KEY UPDATE component_id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, componentType);
+            pstmt.setInt(2, componentId);
+            pstmt.setInt(3, componentId);  // for updating in case of duplicate
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Method to get the user's selection based on component type
+    public int getUserSelection(String componentType) {
+        int componentId = -1;
+        try {
+            String query = "SELECT component_id FROM user_selections WHERE component_type = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, componentType);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                componentId = rs.getInt("component_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return componentId;
+    }
+
+    // Method to get component details based on its type and ID
+    public String getComponentDetails(String componentType, int componentId) {
+        String details = "";
+        try {
+            String query = "SELECT * FROM " + componentType + " WHERE id = ?";
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, componentId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                details = rs.getString("name") + " " + rs.getString("other_column");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return details;
     }
 
     public ResultSet executeQuery(String query) {
         try {
-            Statement stmt = conn.createStatement();
-            return stmt.executeQuery(query);
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            return pstmt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error executing the query.");
-            return null;
         }
+        return null;
     }
 
     public int executeUpdate(String query) {
         try {
-            Statement stmt = conn.createStatement();
-            return stmt.executeUpdate(query);
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            return pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error updating the database.");
-            return 0;
         }
+        return 0; // Return 0 to indicate no rows were affected if an exception is caught
     }
 
-    public String fetchGPURecommendation(String gpuName) {
-        // Mock implementation: Return a recommendation based on GPU name
-        // In a real-world scenario, you would fetch this data from the database.
-
-        switch (gpuName) {
-            case "RTX 4090":
-                return "Highly recommended for gaming!";
-            case "RTX 4050":
-                return "Good for basic gaming!";
-            // ... add more cases for other GPU names as needed
-            default:
-                return "No recommendation available.";
-        }
-    }
-
+    // You might need a method to close the connection when done
     public void closeConnection() {
         try {
-            if (conn != null && !conn.isClosed()) {
+            if (conn != null) {
                 conn.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Error closing the connection.");
         }
     }
 }

@@ -21,13 +21,21 @@ public class PowerSupplyModel extends Component {
         this.classification = classification;
     }
 
+    public PowerSupplyModel() {
+        super("defaultID", "defaultName");
+        this.classification = "defaultClassification";
+    }
+
     public String getClassification() {
         return classification;
     }
 
+    public void setClassification(String classification) {
+        this.classification = classification;
+    }
+
     @Override
     public void loadFromDatabase() {
-        // Mock implementation to load PowerSupply details from the database
         String query = "SELECT classification FROM power_supplies WHERE id = '" + this.id + "'";
         ResultSet resultSet = dbManager.executeQuery(query);
 
@@ -42,15 +50,12 @@ public class PowerSupplyModel extends Component {
 
     @Override
     public void displayOptions() {
-        // Mock implementation to display PowerSupply options or recommendations
         if (this.classification.equalsIgnoreCase("Bronze")) {
             System.out.println("Bronze: Basic efficiency level, suitable for budget builds.");
         } else if (this.classification.equalsIgnoreCase("Silver")) {
             System.out.println("Silver: Moderate efficiency, suitable for mainstream builds.");
         } else if (this.classification.equalsIgnoreCase("Gold")) {
             System.out.println("Gold: High efficiency, suitable for high-end builds.");
-        } else if (this.classification.equalsIgnoreCase("Platinum")) {
-            System.out.println("Platinum: Very high efficiency, suitable for enthusiast builds.");
         } else {
             System.out.println("No specific recommendations available.");
         }

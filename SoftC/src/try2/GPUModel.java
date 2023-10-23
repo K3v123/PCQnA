@@ -8,6 +8,7 @@ package try2;
  *
  * @author kq635
  */
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,12 +16,18 @@ public class GPUModel extends Component {
 
     private String speed;
     private String classification;
-     private DatabaseManager dbManager = new DatabaseManager();  
+    private DatabaseManager dbManager = new DatabaseManager();
 
     public GPUModel(String id, String name, String speed, String classification) {
         super(id, name);
         this.speed = speed;
         this.classification = classification;
+    }
+
+    public GPUModel() {
+        super("defaultID", "defaultName");
+        this.speed = "defaultSpeed";
+        this.classification = "defaultClassification";
     }
 
     public String getSpeed() {
@@ -41,7 +48,6 @@ public class GPUModel extends Component {
 
     @Override
     public void loadFromDatabase() {
-        // Mock implementation to load GPU details from the database
         String query = "SELECT speed, classification FROM gpus WHERE id = '" + this.id + "'";
         ResultSet resultSet = dbManager.executeQuery(query);
 
@@ -57,7 +63,6 @@ public class GPUModel extends Component {
 
     @Override
     public void displayOptions() {
-        // Mock implementation to display GPU options or recommendations
         if (this.classification.equalsIgnoreCase("High-end")) {
             System.out.println("Perfect for intensive graphical tasks, like 3D rendering and gaming.");
         } else if (this.classification.equalsIgnoreCase("Mid-range")) {

@@ -21,6 +21,11 @@ public class CoolingModel extends Component {
         this.type = type;
     }
 
+    public CoolingModel() {
+        super("defaultID", "defaultName");
+        this.type = "defaultType";
+    }
+
     public String getType() {
         return type;
     }

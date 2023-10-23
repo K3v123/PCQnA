@@ -23,6 +23,12 @@ public class MotherboardModel extends Component {
         this.size = size;
     }
 
+    public MotherboardModel() {
+        super("defaultID", "defaultName");
+        this.type = "defaultType";
+        this.size = "defaultSize";
+    }
+
     public String getType() {
         return type;
     }

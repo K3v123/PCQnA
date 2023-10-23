@@ -8,6 +8,7 @@ package try2;
  *
  * @author kq635
  */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -45,6 +46,4 @@ public class TPUController {
             }
         }
     }
-
-    // ... [Other methods and listeners as needed]
 }

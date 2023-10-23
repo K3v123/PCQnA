@@ -9,53 +9,150 @@ package try2;
  * @author kq635
  */
 import javax.swing.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainController {
 
     private MainView mainView;
+    private DatabaseManager dbManager;
+    private SelectionStore selectionStore;
+    private AdminController adminController;
+    private AdminView adminView;
 
     public MainController() {
+        this.dbManager = new DatabaseManager();
         this.mainView = new MainView();
+        this.selectionStore = new SelectionStore();
+        this.adminView = new AdminView(mainView);
+        this.adminView.frame.setVisible(false);  // Ensure AdminView is initially hidden
+        this.adminController = new AdminController(this.adminView, mainView);
 
-        // Create instances of models and views
-        GPUModel gpuModel = new GPUModel("someId", "someName", "someSpeed", "someClassification");
-        GPUView gpuView = new GPUView();
+        this.mainView.addGPUButtonListener(new GPUButtonListener());
+        this.mainView.addMotherboardButtonListener(new MotherboardButtonListener());
+        this.mainView.addTPUButtonListener(new TPUButtonListener());
+        this.mainView.addStorageButtonListener(new StorageButtonListener());
+        this.mainView.addCoolingButtonListener(new CoolingButtonListener());
+        this.mainView.addPowerSupplyButtonListener(new PowerSupplyButtonListener());
+        this.mainView.addMemoryButtonListener(new MemoryButtonListener());
+        this.mainView.addCPUButtonListener(new CPUButtonListener());
+        this.mainView.addAdminButtonListener(new AdminButtonListener());
+        this.mainView.addMostAskedButtonListener(new MostAskedButtonListener());
+        this.mainView.addFinalSelectionButtonListener(new FinalSelectionButtonListener());
+    }
 
-        MotherboardModel motherboardModel = new MotherboardModel("someId", "someName", "someType", "someSize");
-        MotherboardView motherboardView = new MotherboardView();
+    class GPUButtonListener implements ActionListener {
 
-        TPUModel tpuModel = new TPUModel("someId", "someName", "someSpeed");
-        TPUView tpuView = new TPUView();
+        private GPUController gpuController;
+        private GPUView gpuView;
 
-        StorageModel storageModel = new StorageModel("someId", "someName", "someType", "someSize", 123.45);
-        StorageView storageView = new StorageView();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (gpuView == null) {
+                gpuView = new GPUView();
+                gpuController = new GPUController(gpuView, dbManager);
+                gpuView.addGoBackButtonListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        gpuView.getFrame().setVisible(false); // Hide the GPUView
+                        mainView.setVisible(true); // Show the mainView (main menu)
+                    }
+                });
+            }
+            mainView.setVisible(false); // Hide the mainView
+            gpuView.getFrame().setVisible(true); // Show the GPUView
+        }
+    }
 
-        CoolingModel coolingModel = new CoolingModel("someId", "someName", "someType");
-        CoolingView coolingView = new CoolingView();
+    class MotherboardButtonListener implements ActionListener {
 
-        PowerSupplyModel powerSupplyModel = new PowerSupplyModel("someId", "someName", "someClassification");
-        PowerSupplyView powerSupplyView = new PowerSupplyView();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MotherboardController motherboardController = new MotherboardController(new MotherboardModel(), new MotherboardView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
 
-        MemoryModel memoryModel = new MemoryModel("someId", "someName", "someSize");
-        MemoryView memoryView = new MemoryView();
+    class TPUButtonListener implements ActionListener {
 
-        CPUModel cpuModel = new CPUModel("someId", "someName", "someSpeed", false);
-        CPUView cpuView = new CPUView();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            TPUController tpuController = new TPUController(new TPUModel(), new TPUView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
 
-        DatabaseManager dbManager = new DatabaseManager();
+    class StorageButtonListener implements ActionListener {
 
-        // Add action listeners with controllers initialized with models and views
-        this.mainView.addGPUButtonListener(e -> new GPUController(gpuView, dbManager));
-        this.mainView.addPowerSupplyButtonListener(e -> new PowerSupplyController(powerSupplyModel, powerSupplyView, mainView, dbManager));
-        this.mainView.addMotherboardButtonListener(e -> new MotherboardController(motherboardModel, motherboardView, mainView));
-        this.mainView.addTPUButtonListener(e -> new TPUController(tpuModel, tpuView, mainView));
-        this.mainView.addStorageButtonListener(e -> new StorageController(storageModel, storageView, mainView));
-        this.mainView.addCoolingButtonListener(e -> new CoolingController(coolingModel, coolingView, mainView));
-        this.mainView.addMemoryButtonListener(e -> new MemoryController(memoryModel, memoryView, mainView));
-        this.mainView.addCPUButtonListener(e -> new CPUController(cpuModel, cpuView, mainView));
-        this.mainView.addAdminButtonListener(e -> new AdminController(new AdminView(), mainView));
-        this.mainView.addMostAskedButtonListener(e -> new MostAskedController(new MostAskedView(), mainView));
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            StorageController storageController = new StorageController(new StorageModel(), new StorageView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
+
+    class CoolingButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CoolingController coolingController = new CoolingController(new CoolingModel(), new CoolingView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
+
+    class PowerSupplyButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            PowerSupplyController powerSupplyController = new PowerSupplyController(new PowerSupplyModel(), new PowerSupplyView(), mainView, dbManager);
+            mainView.setVisible(false);
+        }
+    }
+
+    class MemoryButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MemoryController memoryController = new MemoryController(new MemoryModel(), new MemoryView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
+
+    class CPUButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CPUController cpuController = new CPUController(new CPUModel(), new CPUView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
+
+    class MostAskedButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            MostAskedController mostAskedController = new MostAskedController(new MostAskedView(), mainView);
+            mainView.setVisible(false);
+        }
+    }
+
+    class AdminButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Since we no longer use DatabaseManager for hide/unhide, we'll adjust the constructor here
+            // Using the class-level instances
+            MainController.this.adminView.frame.setVisible(true);
+            mainView.setVisible(false);
+        }
+    }
+
+    class FinalSelectionButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new FinalSelectionView(selectionStore);
+        }
     }
 
     public static void main(String[] args) {

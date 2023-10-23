@@ -8,6 +8,7 @@ package try2;
  *
  * @author kq635
  */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,22 +24,19 @@ public class MemoryController {
         this.mainView = mainView;
 
         this.memoryView.addGoBackButtonListener(new GoBackListener());
-        // Assuming you add a button or action to fetch Memory details in the view
         this.memoryView.addFetchDetailsButtonListener(new FetchDetailsListener());
     }
 
     class GoBackListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-            memoryView.getFrame().dispose();  // Close the MemoryView window
-            mainView.setVisible(true);  // Show the main view
+            memoryView.dispose();  // Close the MemoryView window
+            mainView.setVisible(true);  // Show the main view again
         }
     }
 
     class FetchDetailsListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
             try {
                 String size = memoryModel.getSize();
@@ -48,6 +46,4 @@ public class MemoryController {
             }
         }
     }
-
-    // ... [Other methods and listeners as needed]
 }

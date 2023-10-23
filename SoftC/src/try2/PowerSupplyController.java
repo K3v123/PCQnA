@@ -30,28 +30,21 @@ public class PowerSupplyController {
 
     class GoBackListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
-            powerSupplyView.dispose();
-            mainView.setVisible(true);
+            powerSupplyView.dispose();  // Close the PowerSupplyView window
+            mainView.setVisible(true);  // Show the main view again
         }
     }
 
     class FetchDetailsListener implements ActionListener {
 
-        @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                // Here, you'd typically fetch the details from the database or the model
-                // For demonstration purposes, I'm using the model's getter directly
-                String classification = powerSupplyModel.getClassification();
+                String classification = powerSupplyModel.getClassification();  // Get classification
                 powerSupplyView.setPowerSupplyDetails(classification);
             } catch (Exception ex) {
-                // Assuming you have an error message display method in your view
-                powerSupplyView.displayErrorMessage("Error fetching power supply details: " + ex.getMessage());
+                powerSupplyView.displayErrorMessage("Error fetching Power Supply details: " + ex.getMessage());
             }
         }
     }
-
-    // ... [Other methods and listeners as needed]
 }

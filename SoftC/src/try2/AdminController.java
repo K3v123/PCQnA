@@ -11,21 +11,20 @@ package try2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AdminController implements DatabaseOperations {
+public class AdminController {
 
     private AdminView adminView;
     private MainView mainView;
-    private boolean isAdminLoggedIn = false; // to check if admin is already logged in
-    private int loginAttempts = 0; // count login attempts
-    private DatabaseManager dbManager;
+    private boolean isAdminLoggedIn = false;
+    private int loginAttempts = 0;
 
     public AdminController(AdminView adminView, MainView mainView) {
         this.adminView = adminView;
         this.mainView = mainView;
 
-        // Add action listeners to the buttons in the AdminView
         this.adminView.addLoginButtonListener(new LoginListener());
         this.adminView.addGoBackButtonListener(new GoBackListener());
+        this.adminView.addDashboardGoBackButtonListener(new GoBackListener());
     }
 
     class LoginListener implements ActionListener {
@@ -41,9 +40,12 @@ public class AdminController implements DatabaseOperations {
             String password = adminView.getPassword();
 
             if (isValidAdminCredentials(username, password)) {
-                isAdminLoggedIn = true;  // Set the login flag to true
+                isAdminLoggedIn = true;
                 adminView.displaySuccessMessage("Logged in successfully!");
-                // You can add code here to open the admin dashboard if needed
+                adminView.switchToDashboard();
+                // After successful login, apply visibility settings
+                applyComponentVisibility();
+
             } else {
                 loginAttempts++;
                 if (loginAttempts >= 3) {
@@ -56,9 +58,7 @@ public class AdminController implements DatabaseOperations {
         }
 
         private boolean isValidAdminCredentials(String username, String password) {
-            // For this example, let's say the admin username is "admin" and password is "password123"
-            // In a real-world scenario, you'd probably fetch these values from a secure database.
-            return "admin".equals(username) && "password123".equals(password);
+            return "pdc".equals(username) && "pdc".equals(password);
         }
     }
 
@@ -70,45 +70,19 @@ public class AdminController implements DatabaseOperations {
         }
     }
 
-    @Override
-    public void addToDatabase(Component component) {
-        String query = "INSERT INTO components (id, name) VALUES ('"
-                + component.getId() + "', '"
-                + component.getName() + "')";
-        int rowsAffected = dbManager.executeUpdate(query);
-        if (rowsAffected > 0) {
-            adminView.displaySuccessMessage("Component added successfully!");
-        } else {
-            adminView.displayErrorMessage("Error adding component.");
-        }
-    }
-
-    @Override
-    public void editInDatabase(String componentId, Component updatedComponent) {
-        String query = "UPDATE components SET name = '"
-                + updatedComponent.getName() + "' WHERE id = '"
-                + componentId + "'";
-        int rowsAffected = dbManager.executeUpdate(query);
-        if (rowsAffected > 0) {
-            adminView.displaySuccessMessage("Component updated successfully!");
-        } else {
-            adminView.displayErrorMessage("Error updating component.");
-        }
-    }
-
-    @Override
-    public void deleteFromDatabase(String componentId) {
-        String query = "DELETE FROM components WHERE id = '" + componentId + "'";
-        int rowsAffected = dbManager.executeUpdate(query);
-        if (rowsAffected > 0) {
-            adminView.displaySuccessMessage("Component deleted successfully!");
-        } else {
-            adminView.displayErrorMessage("Error deleting component.");
-        }
+    private void applyComponentVisibility() {
+        mainView.setGPUVisibility(adminView.isGPUVisible());
+        mainView.setCPUVisibility(adminView.isCPUVisible());
+        mainView.setMemoryVisibility(adminView.isMemoryVisible());
+        mainView.setPowerSupplyVisibility(adminView.isPowerSupplyVisible());
+        mainView.setCoolingVisibility(adminView.isCoolingVisible());
+        mainView.setStorageVisibility(adminView.isStorageVisible());
+        mainView.setTPUVisibility(adminView.isTPUVisible());
+        mainView.setMotherboardVisibility(adminView.isMotherboardVisible());
     }
 
     private void goBackToMainView() {
-        adminView.dispose();  // Close the AdminView window
-        mainView.setVisible(true);  // Show the main view
+        adminView.dispose();
+        mainView.setVisible(true);
     }
 }
