@@ -1,0 +1,8 @@
+GPU:true
+CPU:false
+Memory:false
+PowerSupply:true
+Cooling:false
+Storage:true
+TPU:true
+Motherboard:true
