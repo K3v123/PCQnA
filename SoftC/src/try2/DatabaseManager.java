@@ -13,6 +13,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseManager {
 
@@ -29,57 +31,51 @@ public class DatabaseManager {
         }
     }
 
-    public ResultSet fetchGPU() {
-        return executeQuery("SELECT * FROM GPU");
-    }
+    public List<GPUModel> fetchGPU() {
+        List<GPUModel> gpuList = new ArrayList<>();
+        String query = "SELECT * FROM gpus";
+        ResultSet resultSet = executeQuery(query);
 
-    public ResultSet fetchCPU() {
-        return executeQuery("SELECT * FROM CPU");
-    }
-
-    public ResultSet fetchMemory() {
-        return executeQuery("SELECT * FROM Memory");
-    }
-
-    public ResultSet fetchPowerSupply() {
-        return executeQuery("SELECT * FROM PowerSupply");
-    }
-
-    public ResultSet fetchCooling() {
-        return executeQuery("SELECT * FROM Cooling");
-    }
-
-    public ResultSet fetchStorage() {
-        return executeQuery("SELECT * FROM Storage");
-    }
-
-    public ResultSet fetchTPU() {
-        return executeQuery("SELECT * FROM TPU");
-    }
-
-    public ResultSet fetchMotherboard() {
-        return executeQuery("SELECT * FROM Motherboard");
-    }
-
-    // Method to store the user's selection
-    public void storeUserSelection(String componentType, int componentId) {
         try {
-            String query = "INSERT INTO user_selections (component_type, component_id) VALUES (?, ?) ON DUPLICATE KEY UPDATE component_id = ?";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setString(1, componentType);
-            pstmt.setInt(2, componentId);
-            pstmt.setInt(3, componentId);  // for updating in case of duplicate
-            pstmt.executeUpdate();
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                String speed = resultSet.getString("speed");
+                String classification = resultSet.getString("classification");
+                GPUModel gpu = new GPUModel(id, name, speed, classification);
+                gpuList.add(gpu);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return gpuList;
     }
 
-    // Method to get the user's selection based on component type
-    public int getUserSelection(String componentType) {
+    public List<CPUModel> fetchCPU() {
+        List<CPUModel> cpuList = new ArrayList<>();
+        String query = "SELECT * FROM CPU";
+        ResultSet resultSet = executeQuery(query);
+
+        try {
+            while (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                String speed = resultSet.getString("speed");
+                String overclock = resultSet.getString("overclock");
+                CPUModel cpu = new CPUModel(id, name, speed, overclock);
+                cpuList.add(cpu);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cpuList;
+    }
+    // ... (More methods related to fetching other components can be added similarly)
+
+    public int getMostSelectedComponentId(String componentType) {
         int componentId = -1;
         try {
-            String query = "SELECT component_id FROM user_selections WHERE component_type = ?";
+            String query = "SELECT component_id FROM selections WHERE component_type = ?";
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, componentType);
             ResultSet rs = pstmt.executeQuery();
@@ -140,3 +136,5 @@ public class DatabaseManager {
         }
     }
 }
+
+

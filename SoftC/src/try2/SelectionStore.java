@@ -18,6 +18,7 @@ public class SelectionStore {
     private String powerSupplySelection;
     private String memorySelection;
     private String cpuSelection;
+    private static SelectionStore instance = null;
 
     public SelectionStore() {
         // Initialize all selections to "Not Selected" by default
@@ -29,6 +30,17 @@ public class SelectionStore {
         this.powerSupplySelection = "Not Selected";
         this.memorySelection = "Not Selected";
         this.cpuSelection = "Not Selected";
+    }
+
+    public static SelectionStore getInstance() {
+        if (instance == null) {
+            instance = new SelectionStore();
+        }
+        return instance;
+    }
+
+    public void storeCPUSelection(CPUModel selectedCPU) {
+        this.cpuSelection = selectedCPU.getName();  // Or any other attribute of the CPUModel you want to store
     }
 
     // Getters and Setters for each component

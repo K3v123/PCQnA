@@ -8,10 +8,13 @@ package try2;
  *
  * @author kq635
  */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class CPUView extends BaseView {
 
@@ -19,6 +22,7 @@ public class CPUView extends BaseView {
     private JButton fetchDetailsButton, recommendationButton;
     private JFrame recommendationFrame;
     private JTextArea recommendationText, infoText;
+    private JTable cpuTable;
 
     public CPUView() {
         super();
@@ -42,6 +46,7 @@ public class CPUView extends BaseView {
         panel.add(goBackButton);
 
         frame.add(panel);
+        frame.setSize(650, 450);
         frame.setVisible(true);
     }
 
@@ -77,5 +82,31 @@ public class CPUView extends BaseView {
         recommendationFrame.add(recommendationPanel);
         recommendationFrame.setVisible(true);
         frame.setVisible(false);
+    }
+
+    public void setupTable(List<CPUModel> cpuList) {
+        // Define table column names
+        String[] columnNames = {"ID", "Name", "Speed", "Overclock"};
+
+        // Convert CPUModel list to table data
+        Object[][] data = new Object[cpuList.size()][4];
+        for (int i = 0; i < cpuList.size(); i++) {
+            data[i][0] = cpuList.get(i).getId();
+            data[i][1] = cpuList.get(i).getName();
+            data[i][2] = cpuList.get(i).getSpeed();
+            data[i][3] = cpuList.get(i).getOverclock();
+        }
+
+        cpuTable = new JTable(data, columnNames);
+        fetchDetailsButton.setEnabled(false);
+
+        JScrollPane scrollPane = new JScrollPane(cpuTable);
+        panel.add(scrollPane);
+        panel.revalidate();
+        panel.repaint();
+    }
+
+    public JTable getCPUTable() {
+        return cpuTable;
     }
 }

@@ -23,6 +23,7 @@ public class CPUModel extends Component {
         this.speed = speed;
         this.overclock = overclock;
     }
+    
 
     public CPUModel() {
         super("defaultID", "defaultName");
