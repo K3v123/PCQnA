@@ -3,36 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package view;
-import ButtonHandler.*;
-import Base.*;
-import Control.*;
-import exception.*;
-import Model.*;
-/**
- *
- * @author kq635
- */
-import view.BaseView;
-import view.MainView;
+
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileWriter;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +35,7 @@ public class AdminView extends BaseView {
     private JPanel adminDashboardPanel;
     private JCheckBox gpuCheckBox, cpuCheckBox, memoryCheckBox, powerSupplyCheckBox,
             coolingCheckBox, storageCheckBox, tpuCheckBox, motherboardCheckBox;
+
     private MainView mainView;
     private JTextField usernameField, passwordField;
 
@@ -147,6 +137,71 @@ public class AdminView extends BaseView {
         return passwordField.getText();
     }
 
+    public JCheckBox getGpuCheckBox() {
+        return gpuCheckBox;
+    }
+
+    public JCheckBox getCpuCheckBox() {
+        return cpuCheckBox;
+    }
+
+    public JCheckBox getMemoryCheckBox() {
+        return memoryCheckBox;
+    }
+
+    public JCheckBox getPowerSupplyCheckBox() {
+        return powerSupplyCheckBox;
+    }
+
+    public JCheckBox getCoolingCheckBox() {
+        return coolingCheckBox;
+    }
+
+    public JCheckBox getStorageCheckBox() {
+        return storageCheckBox;
+    }
+
+    public JCheckBox getTpuCheckBox() {
+        return tpuCheckBox;
+    }
+
+    // setters
+    public JCheckBox getMotherboardCheckBox() {
+        return motherboardCheckBox;
+    }
+
+    public void setGpuCheckBox(JCheckBox gpuCheckBox) {
+        this.gpuCheckBox = gpuCheckBox;
+    }
+
+    public void setCpuCheckBox(JCheckBox cpuCheckBox) {
+        this.cpuCheckBox = cpuCheckBox;
+    }
+
+    public void setMemoryCheckBox(JCheckBox memoryCheckBox) {
+        this.memoryCheckBox = memoryCheckBox;
+    }
+
+    public void setPowerSupplyCheckBox(JCheckBox powerSupplyCheckBox) {
+        this.powerSupplyCheckBox = powerSupplyCheckBox;
+    }
+
+    public void setCoolingCheckBox(JCheckBox coolingCheckBox) {
+        this.coolingCheckBox = coolingCheckBox;
+    }
+
+    public void setStorageCheckBox(JCheckBox storageCheckBox) {
+        this.storageCheckBox = storageCheckBox;
+    }
+
+    public void setTpuCheckBox(JCheckBox tpuCheckBox) {
+        this.tpuCheckBox = tpuCheckBox;
+    }
+
+    public void setMotherboardCheckBox(JCheckBox motherboardCheckBox) {
+        this.motherboardCheckBox = motherboardCheckBox;
+    }
+
     // Check if GPU component is visible in the UI.
     public boolean isGPUVisible() {
         return gpuCheckBox.isSelected();
@@ -246,18 +301,19 @@ public class AdminView extends BaseView {
         if (!file.exists()) {
             return;  // If file doesn't exist, skip loading.
         }
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(VISIBILITY_FILE_PATH));
-            for (String line : lines) {
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(":");
                 if (parts.length != 2) {
-                    continue;
+                    continue;  // Skip if line format is invalid.
                 }
 
-                String component = parts[0].trim();
+                String componentName = parts[0].trim();
                 boolean isVisible = Boolean.parseBoolean(parts[1].trim());
 
-                switch (component) {
+                switch (componentName) {
                     case "GPU":
                         gpuCheckBox.setSelected(isVisible);
                         break;
@@ -282,6 +338,9 @@ public class AdminView extends BaseView {
                     case "Motherboard":
                         motherboardCheckBox.setSelected(isVisible);
                         break;
+                    default:
+                        // Handle unknown components if necessary.
+                        break;
                 }
             }
         } catch (IOException e) {
@@ -297,37 +356,4 @@ public class AdminView extends BaseView {
 //    public JPasswordField getPasswordField() {
 //        return passwordField;
 //    }
-    public JCheckBox getGpuCheckBox() {
-        return gpuCheckBox;
-    }
-
-    public JCheckBox getCpuCheckBox() {
-        return cpuCheckBox;
-    }
-
-    public JCheckBox getMemoryCheckBox() {
-        return memoryCheckBox;
-    }
-
-    public JCheckBox getPowerSupplyCheckBox() {
-        return powerSupplyCheckBox;
-    }
-
-    public JCheckBox getCoolingCheckBox() {
-        return coolingCheckBox;
-    }
-
-    public JCheckBox getStorageCheckBox() {
-        return storageCheckBox;
-    }
-
-    public JCheckBox getTpuCheckBox() {
-        return tpuCheckBox;
-    }
-
-    public JCheckBox getMotherboardCheckBox() {
-        return motherboardCheckBox;
-    }
-
-
 }

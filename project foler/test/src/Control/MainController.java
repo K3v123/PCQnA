@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Control;
+
 import Base.DatabaseManager;
 import ButtonHandler.AdminButtonHandler;
 import ButtonHandler.CPUButtonHandler;
@@ -39,6 +40,17 @@ public class MainController {
         this.adminController = new AdminController(this.adminView, this.mainView);
 
         attachEventListeners();
+
+// Apply the loaded visibility states to the MainView components
+        this.mainView.setGPUVisibility(this.adminView.getGpuCheckBox().isSelected());
+        this.mainView.setCPUVisibility(this.adminView.getCpuCheckBox().isSelected());
+        this.mainView.setMemoryVisibility(this.adminView.getMemoryCheckBox().isSelected());
+        this.mainView.setPowerSupplyVisibility(this.adminView.getPowerSupplyCheckBox().isSelected());
+        this.mainView.setCoolingVisibility(this.adminView.getCoolingCheckBox().isSelected());
+        this.mainView.setStorageVisibility(this.adminView.getStorageCheckBox().isSelected());
+        this.mainView.setTPUVisibility(this.adminView.getTpuCheckBox().isSelected());
+        this.mainView.setMotherboardVisibility(this.adminView.getMotherboardCheckBox().isSelected());
+
     }
 
     /**

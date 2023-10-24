@@ -1,8 +1,8 @@
 GPU:true
-CPU:false
-Memory:false
+CPU:true
+Memory:true
 PowerSupply:true
-Cooling:false
+Cooling:true
 Storage:true
 TPU:true
 Motherboard:true
